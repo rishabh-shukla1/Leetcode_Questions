@@ -15,7 +15,7 @@ class Solution {
 
     System.out.println(l);
 
-    Collections.sort(l,(x,y)->y.getValue()-x.getValue());  // ***********
+    Collections.sort(l,(x,y)->y.getValue()-x.getValue());  // GOOD CONCEPT OF SORTIG 
 
     for(int i=0;i<k;i++)
     {
