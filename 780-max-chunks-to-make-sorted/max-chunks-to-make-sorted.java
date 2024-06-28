@@ -1,24 +1,32 @@
 class Solution {
     public int maxChunksToSorted(int[] arr) {
 
-        int f[]=new int[10];
+         int a[]=new int[arr.length];
+         for(int i=0;i<arr.length;i++)
+         {
+            a[i]=arr[i];
+         }
 
-        for(int i=0;i<arr.length;i++)
-        {
-            f[arr[i]]=i;
+         Arrays.sort(a);
 
-        }
-        int c=0;
+         int sum=0;
+         int usum=0;
+         int ans=0;
 
-        int j=-1;
+         for(int i=0;i<a.length;i++)
+         {
+            sum=sum+a[i];
+            usum=usum+arr[i];
 
-        for(int i=0;i<arr.length;i++)
-        {
-            j=Math.max(j,f[i]);
-            if(j==i)c++;
-        }
+            if(sum==usum)
+            {
+                ans++;
+            }
+         }
 
-        return c;
+         return ans;
+
+       
         
     }
 
