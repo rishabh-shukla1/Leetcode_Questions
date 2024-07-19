@@ -16,17 +16,22 @@ class Solution {
         //     }
         //  }
 
-        for(int i=0;i<haystack.length()-needle.length()+1;i++)
-        {
-            String w=haystack.substring(i,needle.length()+i);
-            System.out.println(w);
-            if(w.equals(needle))
-            return i;
+        // for(int i=0;i<haystack.length()-needle.length()+1;i++)
+        // {
+        //     String w=haystack.substring(i,needle.length()+i);
+        //     System.out.println(w);
+        //     if(w.equals(needle))
+        //     return i;
 
 
-        }
+        // }
 
-        return -1;
+        // return -1;
+
+
+        return haystack.indexOf(needle);
+
+
         
     }
 }
