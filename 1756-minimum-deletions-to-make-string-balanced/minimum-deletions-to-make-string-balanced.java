@@ -5,9 +5,9 @@ class Solution {
          int ans=0;
 
 
-         char ch[]=s.toCharArray();
+        
 
-         for(char t:ch)
+         for(char t:s.toCharArray())
          {
 
             if(t=='b')
