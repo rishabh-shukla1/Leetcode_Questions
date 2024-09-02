@@ -4,7 +4,7 @@ class Solution {
 
         while(k>=0)
         {
-            int f=0;
+            
 
             for (i=0;i<chalk.length;i++)
             {
