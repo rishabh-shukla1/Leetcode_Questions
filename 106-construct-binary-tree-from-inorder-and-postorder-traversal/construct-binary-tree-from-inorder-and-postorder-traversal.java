@@ -14,31 +14,40 @@
  * }
  */
 class Solution {
+
+    static int p;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
 
+        p=postorder.length-1;
 
-        return create(postorder,inorder,0,postorder.length-1,0,inorder.length-1);
+
+
+
+        return create(postorder,inorder,0,inorder.length-1);
         
     }
 
-    public static TreeNode create(int post[],int in[],int plo,int phi,int ilo,int ihi)
+    public static TreeNode create(int post[],int in[],int ilo,int ihi)
     {
-        if(ilo>ihi ||plo>phi)
+        if(ilo>ihi )
         {
             return null;
         }
 
-        TreeNode root=new TreeNode(post[phi]);
+        TreeNode root=new TreeNode(post[p--]);
 
-        int idx=search(in,post[phi],ilo,ihi);
+        if(ilo==ihi)
+        {
+            return root;
+        }
 
-        int c=idx-ilo;
+        int idx=search(in,root.val,ilo,ihi);
 
 
-        
-        root.left=create(post,in,plo,plo+c-1,ilo,idx-1);
-        root.right=create(post,in,plo+c,phi-1,idx+1,ihi);
+          root.right=create(post,in,idx+1,ihi);
 
+        root.left=create(post,in,ilo,idx-1);
+      
         return root;
 
 
@@ -57,6 +66,6 @@ class Solution {
             }
         }
 
-        return 0;
+        return -1;
     }
 }
