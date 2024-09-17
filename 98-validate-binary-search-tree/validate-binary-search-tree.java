@@ -15,31 +15,42 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-         List<Integer> l=new ArrayList<>();
-       
 
         
+           return validBst(root).isBst;
 
-        preorder(root,l);
+        
+    }
 
-        for(int i=0;i<l.size()-1;i++)
+
+    public bstpair validBst(TreeNode root)
+    {
+        if(root==null)
         {
-            if(l.get(i)>=l.get(i+1))
-            return false;
+            return new bstpair();
         }
 
-        return true;
         
-    }
-    public static void preorder(TreeNode root,List<Integer>l)
- {
-    if(root==null)
-    {
-        return ;
+        bstpair lbp= validBst(root.left);
+        bstpair rbp= validBst(root.right);
+        bstpair sbp=new bstpair();
+
+        sbp.min=Math.min(lbp.min,Math.min(rbp.min,root.val));
+        sbp.max=Math.max(lbp.max,Math.max(rbp.max,root.val));
+
+        System.out.println(sbp.min+" "+sbp.max);
+
+        sbp.isBst=lbp.isBst && rbp.isBst && root.val>lbp.max && root.val<rbp.min ;
+
+        return sbp;
+
     }
 
-    preorder(root.left,l);
-    l.add(root.val);
-    preorder(root.right,l);
- }
+     class bstpair
+     {
+        long min=Long.MAX_VALUE;
+        long max=Long.MIN_VALUE;
+        boolean isBst=true;
+
+     }
 }
