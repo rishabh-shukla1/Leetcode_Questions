@@ -29,7 +29,7 @@ class Solution {
         }
 
 
-        for(int j=0;j<=13;j++)
+        for(int j=0;j<=9;j++)
         {
             
             find(n,l,s+Integer.toString(j),ll);
