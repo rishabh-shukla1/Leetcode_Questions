@@ -9,25 +9,42 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+
+        return find(root,p,q);
+        
+    }
+
+    public static TreeNode find(TreeNode root,TreeNode p, TreeNode q)
+    {
+
         if(root==null)
-        return null;
+        {
+            return null;
+        }
 
-        if(root== p  || root ==q)
-        return root;
 
-        TreeNode left=lowestCommonAncestor(root.left,p,q);
-        TreeNode right=lowestCommonAncestor(root.right,p,q);
-
-        if(left!=null && right !=null)
+        if(root==p || root==q)
         {
             return root;
         }
-        else if(left==null)
-        return right;
-        else 
+
+       TreeNode l= find(root.left,p,q);
+       TreeNode r =find(root.right,p,q);
+
+        if(l!=null && r!=null)
         {
-            return left;
+            return root;
+
         }
-        
+        else if(l==null)
+        {
+            return r;
+                    }
+                    else
+                    {
+                        return l;
+                    }
+
     }
 }
