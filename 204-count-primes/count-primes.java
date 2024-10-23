@@ -20,9 +20,12 @@ class Solution {
         
         for(int i=2;i*i<m.length;i++)
         {
+            if(m[i]==false)
+            {
             for(int j=2;i*j<m.length;j++)
             {
                 m[i*j]=true;
+            }
             }
         }
                 int c=0;
