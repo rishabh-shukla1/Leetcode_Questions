@@ -2,10 +2,11 @@ class Solution {
     public int minFallingPathSum(int[][] matrix) {
 
         int ans=Integer.MAX_VALUE;
+        Integer [][] dp=new Integer[matrix.length][matrix[0].length];
 
         for(int i=0;i<matrix[0].length;i++)
         {
-            Integer [][] dp=new Integer[matrix.length][matrix[0].length];
+            
             ans=Math.min(ans,Path_Sum(matrix,0,i,dp));
         }
 
