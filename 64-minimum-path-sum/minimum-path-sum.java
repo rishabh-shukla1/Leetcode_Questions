@@ -21,17 +21,17 @@ class Solution {
 
         if(i<0 || j<0)
         {
-            return Integer.MAX_VALUE;
+            return (int) Math.pow(10, 9);
         }
         if(dp[i][j]!=-1)
         {
             return dp[i][j];
         }
         
-         int up=find(i-1,j,grid,dp);
-         int down=find(i,j-1,grid,dp);
+         int up=grid[i][j]+find(i-1,j,grid,dp);
+         int down=grid[i][j]+find(i,j-1,grid,dp);
 
-         return dp[i][j]=Math.min(up,down)+grid[i][j];
+         return dp[i][j]=Math.min(up,down);
 
 
     }
