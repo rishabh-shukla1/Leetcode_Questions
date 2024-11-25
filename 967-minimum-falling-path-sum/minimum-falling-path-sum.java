@@ -1,48 +1,44 @@
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
 
-        int ans=Integer.MAX_VALUE;
-        Integer [][] dp=new Integer[matrix.length][matrix[0].length];
+        int min=Integer.MAX_VALUE;
+
+        Integer dp[][]=new Integer[matrix.length][matrix[0].length];
 
         for(int i=0;i<matrix[0].length;i++)
         {
-            
-            ans=Math.min(ans,Path_Sum(matrix,0,i,dp));
+
+            min=Math.min(min,find(0,i,matrix,dp));
+
         }
 
+        return min;
         
-
-        return ans;
     }
-    public static int Path_Sum(int[][]grid , int cr, int cc,Integer dp[][])
+
+    public static int find(int i, int j, int a[][],Integer[][]dp)
     {
-        
-       
-        if( cc>=grid[0].length || cc<0)
+        if(j<0 || j>=a[0].length)
         {
-            return Integer.MAX_VALUE;
+            return (int)Math.pow(10,9);
         }
 
-        if(cr==grid.length-1)
+        if(i==a.length-1)
         {
-            return grid[cr][cc];
-
+            return a[i][j];
+            
         }
-        if(dp[cr][cc]!=null)
+        if(dp[i][j]!=null)
         {
-            return dp[cr][cc];
+            return dp[i][j];
         }
 
-       
-        int ld= Path_Sum(grid,cr+1,cc-1,dp);
-       
-        int rd = Path_Sum(grid,cr+1,cc,dp);
+        int  down=a[i][j]+find(i+1,j,a,dp);
+        int  rd=a[i][j]+find(i+1,j+1,a,dp);
+        int  ld=a[i][j]+find(i+1,j-1,a,dp);
 
-         int d=Path_Sum(grid,cr+1,cc+1,dp);
-
-        return dp[cr][cc]=Math.min(ld,Math.min(rd,d))+grid[cr][cc];
-    }
-
+        return dp[i][j]=Math.min(down,Math.min(rd,ld));
         
         
     }
+}
