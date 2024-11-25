@@ -1,39 +1,44 @@
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
-        int n = matrix.length;
-        int m = matrix[0].length;
 
-        // Create a dp array with the same dimensions as the matrix
-        int[][] dp = new int[n][m];
+        int min=Integer.MAX_VALUE;
 
-        // Initialize the last row of dp with the values from the matrix
-        for (int j = 0; j < m; j++) {
-            dp[n - 1][j] = matrix[n - 1][j];
+        Integer dp[][]=new Integer[matrix.length][matrix[0].length];
+
+        for(int i=0;i<matrix[0].length;i++)
+        {
+
+            min=Math.min(min,find(0,i,matrix,dp));
+
         }
 
-        // Fill the dp array from the second-last row to the top row
-        for (int i = n - 2; i >= 0; i--) {
-            for (int j = 0; j < m; j++) {
-                // Down
-                int down = dp[i + 1][j];
+        return min;
+        
+    }
 
-                // Right diagonal (check bounds)
-                int rightDiagonal = (j + 1 < m) ? dp[i + 1][j + 1] : (int) Math.pow(10, 9);
-
-                // Left diagonal (check bounds)
-                int leftDiagonal = (j - 1 >= 0) ? dp[i + 1][j - 1] : (int) Math.pow(10, 9);
-
-                // Store the minimum path sum at dp[i][j]
-                dp[i][j] = matrix[i][j] + Math.min(down, Math.min(rightDiagonal, leftDiagonal));
-            }
+    public static int find(int i, int j, int a[][],Integer[][]dp)
+    {
+        if(j<0 || j>=a[0].length)
+        {
+            return (int)Math.pow(10,9);
         }
 
-        // The answer is the minimum value in the first row of dp
-        int minPathSum = Integer.MAX_VALUE;
-        for (int j = 0; j < m; j++) {
-            minPathSum = Math.min(minPathSum, dp[0][j]);
+        if(i==a.length-1)
+        {
+            return a[i][j];
+            
+        }
+        if(dp[i][j]!=null)
+        {
+            return dp[i][j];
         }
 
-        return minPathSum;
+        int  down=a[i][j]+find(i+1,j,a,dp);
+        int  rd=a[i][j]+find(i+1,j+1,a,dp);
+        int  ld=a[i][j]+find(i+1,j-1,a,dp);
+
+        return dp[i][j]=Math.min(down,Math.min(rd,ld));
+        
+        
     }
 }
