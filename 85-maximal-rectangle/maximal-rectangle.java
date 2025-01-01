@@ -1,77 +1,88 @@
 class Solution {
-    public int maximalRectangle(char[][] m) {
+    public int maximalRectangle(char[][] matrix) {
 
-        int[] a=new int[m[0].length];
-      int ans=0;
-        for(int i=m.length-1;i>=0;i--)
+        int a[]=new int[matrix[0].length];
+
+        int max=0;
+
+        for(int i=0;i<matrix.length;i++)
         {
-            if(i==m.length-1)
+            for(int j=0;j<matrix[0].length;j++)
             {
-                
-                 for (int j = 0; j < m[0].length; j++) {
-                    a[j] = (m[i][j] == '1') ? 1 : 0;  
-                }
-            }
-            else
-            {
-                for(int j=0;j<m[0].length;j++)
+                if(matrix[i][j]=='1')
                 {
-                    a[j]=m[i][j]=='1' ? a[j]+1 :0;
+                    a[j]=a[j]+1;
                 }
-            }
-            ans=Math.max(ans,Area(a));
-        }
+                else
+                {
+                    a[j]=0;
+                }
 
-        return ans;
+            }
+
+            int area=find(a);
+            max=Math.max(area,max);
+        }
+        
+
+
+        return max;
         
     }
 
-    public static int Area(int arr[])
+    public static int find(int a[])
     {
-        Stack<Integer> st=new Stack<>();
-        int ans = 0;
 
-        for(int i=0;i<arr.length;i++)
+        int ans=0;
+        Stack<Integer> s=new Stack<>();
+
+        for(int i=0;i<a.length;i++)
         {
-
-            while(!st.isEmpty() && arr[i]<arr[st.peek()])
+            while(!s.isEmpty() && a[i]<a[s.peek()])
             {
-                int h=arr[st.pop()];
 
+                int h=a[s.pop()];
                 int r=i;
 
-                if(!st.isEmpty())
+                if(!s.isEmpty())
                 {
-                    int l=st.peek();
+                    int l=s.peek();
+
                     ans=Math.max(ans,h*(r-l-1));
                 }
                 else
                 {
                     ans=Math.max(ans,h*r);
                 }
+
             }
-            st.push(i);
+
+            s.push(i);
         }
 
-        int r=arr.length;
 
-        while(!st.isEmpty())
+       int r=a.length;
+       while(!s.isEmpty())
             {
-                int h=arr[st.pop()];
 
+                int h=a[s.pop()];
                 
 
-                if(!st.isEmpty())
+                if(!s.isEmpty())
                 {
-                    int l=st.peek();
+                    int l=s.peek();
+
                     ans=Math.max(ans,h*(r-l-1));
                 }
                 else
                 {
                     ans=Math.max(ans,h*r);
                 }
+
             }
 
-            return ans;
+        return ans;
+
+
     }
 }
