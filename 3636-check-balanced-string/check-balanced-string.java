@@ -8,10 +8,14 @@ class Solution {
         {
             if(i%2==0)
             {
+               
+               
                 even=even+(int)num.charAt(i)-48;
             }
             else
             {
+
+
                 odd=odd+(int)num.charAt(i)-48;
 
             }
