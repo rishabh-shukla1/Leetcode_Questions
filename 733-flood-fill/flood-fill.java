@@ -1,40 +1,34 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
 
+            int target=image[sr][sc];
 
-        if(image[sr][sc]!=color)
-        {
-            int t=image[sr][sc];
 
-            check(image,sr,sc,color,t);
+            if(target==color)
+            {
+                return image;
+            }
 
-        }
+        find(sr,sc,color,image,target);
 
 
 
         return image;
-
-
-
         
     }
 
-     public static void check(int  grid[][],int i,int j,int color,int t)
+    public static void find(int i,int j, int color,int a[][],int target)
     {
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]!=t)
+
+        if(i<0 || j<0 ||i>=a.length || j>=a[0].length|| a[i][j]!=target)
         {
             return ;
         }
-        grid[i][j]=color;
-        check(grid,i,j-1,color,t);
-        check(grid,i-1,j,color,t);
-        check(grid,i,j+1,color,t);
-        check(grid,i+1,j,color,t);
+        a[i][j]=color;
 
-
-        
-
-
-
+        find(i+1,j,color,a,target);
+        find(i-1,j,color,a,target);
+        find(i,j+1,color,a,target);
+        find(i,j-1,color,a,target);
     }
 }
