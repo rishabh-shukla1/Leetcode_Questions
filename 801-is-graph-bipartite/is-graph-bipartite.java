@@ -1,68 +1,76 @@
 class Solution {
-
-    class BipartitePair{
-
-        int vtx;
-        int dis;
-
-        public BipartitePair(int vtx,int dis){
-
-            this.dis=dis;
-            this.vtx=vtx;
-        }
-    }
     public boolean isBipartite(int[][] graph) {
 
-        Queue<BipartitePair> q=new LinkedList<>();
+        List<List<Integer>> adj=new ArrayList<>();
 
-        HashMap<Integer,Integer> visited=new HashMap<>();
-
-        for(int vtx=0;vtx<graph.length;vtx++)
+        for(int i=0;i<graph.length;i++)
         {
-            if(visited.containsKey(vtx))
+            adj.add(new ArrayList<>());
+        }
+
+        for(int i=0;i<graph.length;i++)
+        {
+            for(int j=0;j<graph[i].length;j++)
             {
-                continue;
+                adj.get(i).add(graph[i][j]);
+            
             }
-            q.add(new BipartitePair(vtx,0));
+        }
+       
 
-            while(!q.isEmpty())
+         int color[]=new int[graph.length];
+        Arrays.fill(color,-1);
+        for(int i=0;i<graph.length;i++)
+        {
+            if(color[i]==-1)
             {
-                //remove
-
-                BipartitePair rp=q.poll();
-
-                //ignore
-
-                if(visited.containsKey(rp.vtx))
-                {
-
-                    if(visited.get(rp.vtx)!=rp.dis)
-                    {
-
-                        return false;
-                    }
-                    continue;
-                }
-
-                //add visited
-
-                visited.put(rp.vtx,rp.dis);
-
-                //add unvisited nbrs
-                for(int nbrs:graph[rp.vtx])
-                {
-                    if(!visited.containsKey(nbrs))
-                    {
-                        q.add(new BipartitePair(nbrs, rp.dis+1));
-                       
-                    }
-                }
-
-                
+                if(bfs(i,color,adj)==false)
+                return false;
             }
         }
 
         return true;
+
+
+    
         
+
+
+    }
+
+    public static boolean bfs(int j,int color[],List<List<Integer>> adj)
+    {
+         Queue<Integer> q=new LinkedList<>();
+        color[0]=0;
+        q.add(j);   
+
+
+        while(!q.isEmpty())
+        {
+            int node=q.peek();
+
+            q.remove();
+           
+            for(int i=0;i<adj.get(node).size();i++)
+            {
+                if(color[adj.get(node).get(i)]==-1)
+            {
+                q.add(adj.get(node).get(i));
+                color[adj.get(node).get(i)]=1-color[node];
+            }
+            else if(color[node]==color[adj.get(node).get(i)])
+            {
+
+                return false;
+        
+
+            }
+            }
+
+
+        }  
+
+
+        return true;  
     }
 }
