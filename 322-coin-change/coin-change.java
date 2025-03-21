@@ -1,25 +1,33 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
+          
 
-        int dp[][]=new int[coins.length][amount+1];
-        for(int i[]:dp)
-        {
-            Arrays.fill(i,-1);
-        }
+    int dp[][]=new int[coins.length+1][amount+1];
 
-        int result=find(coins.length-1,coins,amount,dp);
+     for(int a[]:dp)
+     {
+        Arrays.fill(a,-1);
+     }
 
-      return   result!=Integer.MAX_VALUE ? result:-1;
+      int t=find(coins,amount,coins.length-1,dp);
+
+       return  t==Integer.MAX_VALUE?-1:t;
+
+
+
+
         
     }
-    public  static int find(int i ,int a[],int target, int dp[][])
+
+    public static int find(int coins[],int target,int i,int dp[][])
+
     {
 
         if(i==0)
         {
-            if(target%a[i]==0)
+            if(target%coins[i]==0)
             {
-                return target/a[i];
+                return target/coins[i];
             }
             else
             {
@@ -27,26 +35,30 @@ class Solution {
             }
         }
 
+
+        int nottake=find(coins,target,i-1,dp);
+
+        int take=Integer.MAX_VALUE;
+
+
         if(dp[i][target]!=-1)
         {
             return dp[i][target];
         }
 
-        int nottake=find(i-1,a,target,dp);
-
-        int take=Integer.MAX_VALUE;
-
-        if(target>=a[i])
+        if(target>=coins[i])
         {
-            int sub=find(i,a,target-a[i],dp);
-           if(sub!=Integer.MAX_VALUE)
-           {
-            take=1+sub;
-           }
 
+            int sub=find(coins,target-coins[i],i,dp);
+
+            if(sub!=Integer.MAX_VALUE)
+            {
+                take=1+sub;
+            }
         }
 
-       return  dp[i][target]=Math.min(take,nottake);
-        
+
+        return dp[i][target]=Math.min(take,nottake);
+
     }
 }
