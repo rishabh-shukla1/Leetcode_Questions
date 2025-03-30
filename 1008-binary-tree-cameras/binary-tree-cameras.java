@@ -14,56 +14,58 @@
  * }
  */
 class Solution {
-    int camera=0;
+
+     static int camera;
     public int minCameraCover(TreeNode root) {
 
          camera=0;
-        int ans=find(root);
+       int c= find(root);
+
+       if(c==0)
+       {
+        ++camera;
+        
+       }
 
 
-        if(ans==0)
-        {
-            return ++camera;
-        }
-
-
-        return camera;
-
-
-
-
+       return camera;
         
     }
-    private int find(TreeNode root)
-    {
+
+
+    public static int find(TreeNode root){
+
+
 
         if(root==null)
-        return 1;
+        {
+            return 1;
+        }
+
 
         int left=find(root.left);
+
         int right=find(root.right);
 
-
-         if(left==0 || right==0)
+        if(left==0  || right==0)
         {
-            camera++;
-           return 2;
+            ++camera;
+            return 2;
         }
 
-        if(left==1 && right==1)
+         if(left==1 && right==1)
         {
+
             return 0;
+
         }
 
-       
-
-        if(left==2  || right==2)
-        return 1;
+        if(left==2 || right==2)
+        {
+            return 1;
+        }
 
 
         return -1;
-
-         
-        
     }
 }
