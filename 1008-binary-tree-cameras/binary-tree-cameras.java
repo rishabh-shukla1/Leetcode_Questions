@@ -15,49 +15,51 @@
  */
 class Solution {
 
-     static int camera;
+
+    static int camera;
     public int minCameraCover(TreeNode root) {
 
-         camera=0;
-       int c= find(root);
+
+        camera=0;
+
+
+      int c= find(root);
 
        if(c==0)
        {
-        ++camera;
-        
+        camera++;
        }
 
 
+
        return camera;
+
+
+        
         
     }
 
 
-    public static int find(TreeNode root){
-
-
-
+    public static int find(TreeNode root)
+    {
         if(root==null)
         {
             return 1;
         }
 
-
         int left=find(root.left);
-
         int right=find(root.right);
 
-        if(left==0  || right==0)
+        if(left==0 || right==0)
         {
             ++camera;
             return 2;
         }
 
-         if(left==1 && right==1)
+        if(left==1 && right==1)
         {
 
             return 0;
-
         }
 
         if(left==2 || right==2)
